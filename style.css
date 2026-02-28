@@ -1,29 +1,26 @@
 :root { --brown: #634d31; --gold: #f7d031; --green: #78ab46; --bg: #e5d3b3; }
-* { box-sizing: border-box; }
-body { font-family: 'DungGeunMo', sans-serif; background: #222; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+.pixel-font { font-family: 'DungGeunMo', sans-serif; }
+body { margin: 0; background: #333; display: flex; align-items: center; justify-content: center; height: 100vh; }
 
-#start-screen { position: absolute; width: 100%; height: 100%; background: #5c94fc; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; }
-.title { font-size: 5rem; color: white; text-shadow: 6px 6px 0 var(--brown); }
+#start-screen { position: absolute; width: 100%; height: 100%; background: #5c94fc; display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.title { font-size: 4rem; color: white; text-shadow: 4px 4px var(--brown); }
 
-#app-container { width: 1100px; height: 750px; background: var(--bg); padding: 20px; }
-.pixel-layout { display: flex; gap: 20px; height: 100%; }
+#app-container { width: 1000px; height: 650px; }
+.layout-wrapper { display: flex; gap: 15px; height: 100%; }
 
-.pixel-border { border: 6px solid var(--brown); background: var(--bg); position: relative; }
-.garden-panel { flex: 1.6; background: var(--green); padding: 25px; display: flex; flex-direction: column; }
-.card-panel { flex: 1; background: #fff8e1; padding: 25px; display: flex; flex-direction: column; gap: 15px; }
+.pixel-border { border: 6px solid var(--brown); background: var(--bg); padding: 20px; box-sizing: border-box; }
+.pixel-border-s { border: 4px solid var(--brown); background: #fff8e1; padding: 10px; margin-bottom: 10px; }
 
-.pixel-btn { font-family: 'DungGeunMo'; background: var(--gold); border: 4px solid var(--brown); box-shadow: inset -4px -4px 0 #b59000; cursor: pointer; padding: 10px; }
-.rec-btn { width: 100%; font-size: 1.5rem; padding: 20px; margin-bottom: 10px; }
-.btn-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.garden-area { flex: 1.5; background: var(--green); display: flex; flex-direction: column; }
+.card-area { flex: 1; background: #fff8e1; }
 
-/* 팝업 모달 */
-.overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; }
-.pixel-modal { width: 550px; margin: 50px auto; padding: 30px; background: #fff8e1; }
+.pixel-btn { font-family: 'DungGeunMo'; background: var(--gold); border: 4px solid var(--brown); box-shadow: inset -4px -4px #b59000; cursor: pointer; }
+.rec-btn { width: 100%; padding: 15px; font-size: 1.2rem; }
+.sub-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; margin-top: 5px; }
 
-/* 이모지 키친 */
-.emoji-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
-.e-btn { font-size: 30px; background: white; border: 2px solid var(--brown); cursor: pointer; }
-
-/* 물방울 정원사 */
-.helper-bot { font-size: 50px; text-align: right; animation: float 2s infinite; }
+.helper-bot { font-size: 40px; text-align: right; animation: float 2s infinite; }
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+.overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; }
+.modal { width: 450px; margin: 40px auto; }
+.emoji-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
