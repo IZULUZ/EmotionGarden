@@ -1,54 +1,25 @@
-:root {
-    --green: #a8d5ba; --pink: #ffb7b2; --bg: #fdf6ec; --brown: #795548;
-}
+:root { --green: #a8d5ba; --pink: #ffb7b2; --bg: #fdf6ec; }
+body { font-family: 'NanumSquareRound', sans-serif; background: var(--bg); margin: 0; }
 
-body { font-family: 'NanumSquareRound', sans-serif; background: var(--bg); margin: 0; overflow-x: hidden; }
-header { padding: 20px; text-align: center; border-bottom: 2px solid var(--green); }
-
-/* 정원 및 식물 */
-.garden-field { height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
-.plant-evolution { font-size: 100px; cursor: pointer; transition: transform 0.3s; }
-.plant-evolution:hover { transform: scale(1.1); }
-
-/* 헬퍼 로봇 (PDF Page 4 캐릭터 느낌) */
-.helper-bot { position: absolute; bottom: 10px; left: 20px; display: flex; align-items: flex-end; }
-.speech-bubble { background: white; padding: 12px; border-radius: 18px; font-size: 13px; border: 2px solid var(--green); margin-bottom: 5px; width: 140px; }
-.bot-icon { font-size: 40px; }
-
-/* 물약 스포이드 조절기 */
-.potion-row { display: flex; align-items: center; margin: 10px 0; gap: 10px; }
-.potion-row input { flex: 1; accent-color: var(--brown); }
-
-/* 모달 애니메이션 */
-.overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 100; }
-.modal-box { background: white; width: 90%; max-width: 420px; margin: 40px auto; border-radius: 25px; padding: 25px; max-height: 85vh; overflow-y: auto; }
-
-/* 버튼 */
-button { border: none; border-radius: 20px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-.btn-primary { background: var(--green); color: white; padding: 15px 40px; font-size: 1.1rem; box-shadow: 0 4px 0 #89b399; }
-.btn-primary:active { transform: translateY(3px); box-shadow: none; }
-.btn-secondary { background: white; border: 2px solid var(--green); color: var(--green); padding: 10px 20px; margin: 5px; }
-.disabled { filter: grayscale(1); opacity: 0.5; }
-:root { --green: #A8D5BA; --beige: #FDF6EC; --white: #FFFFFF; }
-
-#app-container { display: flex; height: 100vh; background: var(--beige); padding: 20px; gap: 20px; }
+#app-wrapper { display: flex; height: 100vh; padding: 20px; gap: 20px; box-sizing: border-box; }
 
 /* 왼쪽 정원 섹션 */
-.garden-view { flex: 1.5; background: var(--white); border-radius: 30px; padding: 30px; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-.main-display { height: 60%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-#plant-pot { font-size: 120px; margin-bottom: 20px; }
+.garden-main { flex: 1.5; background: #fff; border-radius: 40px; padding: 30px; display: flex; flex-direction: column; justify-content: space-between; }
+#main-plant { font-size: 150px; text-align: center; transition: 0.3s; }
+.status-bars { width: 70%; margin: 20px auto; background: #f9f9f9; padding: 15px; border-radius: 20px; }
+.bar-item { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; font-size: 13px; }
+progress { flex: 1; height: 10px; accent-color: var(--green); }
 
-/* 스테이터스 바 디자인 */
-.growth-stats { width: 80%; background: #f0f0f0; padding: 15px; border-radius: 20px; margin-bottom: 30px; }
-.stat-bar { display: flex; align-items: center; gap: 10px; margin: 5px 0; font-size: 14px; }
-progress { flex: 1; height: 12px; border-radius: 10px; }
-progress::-webkit-progress-value { background: var(--green); border-radius: 10px; }
+/* 오른쪽 감정 카드 섹션 (PDF 스타일) */
+.emotion-side-card { flex: 1; background: #fff; border-radius: 40px; border: 4px solid var(--green); padding: 30px; display: flex; flex-direction: column; gap: 15px; }
+.card-box { background: #fdfdfd; border: 1px dashed var(--green); border-radius: 20px; padding: 15px; }
+.large-emoji { font-size: 50px; text-align: center; }
+.tags { color: #888; font-weight: bold; }
 
-/* 오른쪽 감정 카드 섹션 */
-.emotion-card { flex: 1; background: var(--white); border-radius: 30px; padding: 30px; border: 3px solid var(--green); display: flex; flex-direction: column; gap: 20px; }
-.card-section { background: #F9F9F9; padding: 15px; border-radius: 20px; border: 1px dashed var(--green); }
+/* 버튼 */
+.btn-record { background: var(--green); color: white; padding: 20px; border-radius: 30px; font-size: 1.2rem; border: none; cursor: pointer; }
+.disabled { filter: grayscale(1); opacity: 0.5; }
 
-/* 버튼 그룹 */
-.garden-btns { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.btn-main { background: var(--green); color: white; width: 100%; padding: 15px; border-radius: 25px; font-size: 1.1rem; }
-.disabled { background: #eee; color: #aaa; cursor: not-allowed; }
+/* 6단계 모달 */
+.overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 100; }
+.modal-window { background: white; width: 450px; margin: 50px auto; border-radius: 30px; padding: 30px; }
