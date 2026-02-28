@@ -9,42 +9,44 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
-    <div id="app">
+    <div id="garden-container">
         <header>
-            <div class="header-left">
-                <span id="today-date">2026-02-28</span>
-                <div class="user-lv">LV.<span id="user-level">1</span></div>
+            <div class="top-bar">
+                <span id="date">2026-02-28</span> [cite: 4]
+                <div class="level-badge">LV.<span id="user-level">1</span></div> [cite: 20]
             </div>
-            <h1>[<span id="user-name">Jina</span>의 마음 정원]</h1>
-            <div class="user-points">💰 <span id="display-points">0</span> P</div>
+            <h1>[<span id="user-name">Jina</span>의 마음 정원]</h1> [cite: 5]
+            <div class="currency">💰 <span id="user-points">0</span> P</div>
         </header>
 
-        <main id="garden-view">
-            <div class="garden-area">
-                <div id="plant-box">🌱</div>
-                <div class="helper-bot" id="helper-bot">
-                    <div class="bubble" id="helper-text">안녕! 오늘 네 기분을 물약으로 만들어볼까?</div>
-                    <div class="bot-img">🤖</div>
+        <main id="main-garden">
+            <div class="plant-display">
+                <div id="current-plant" class="growing-animation">🌱</div>
+                <div class="helper-bot" id="helper">
+                    <div class="speech-bubble" id="helper-msg">안녕! 오늘 네 마음밭은 어떤 색이니?</div>
+                    <div class="bot-avatar">🤖</div>
                 </div>
             </div>
-            
-            <div class="action-bar">
-                <button onclick="startEmotionStep()" class="btn-main">오늘 감정 모으기</button>
-                <button onclick="openQuestCenter()" id="btn-quest" class="btn-sub disabled" disabled>감정 퀘스트 받기</button>
-                <button onclick="openShop()" class="btn-sub">원예상점</button>
+
+            <div class="control-panel">
+                <button onclick="openEmotionModal()" class="btn-main">오늘 감정 모으기</button> [cite: 23]
+                <button onclick="openQuestModal()" id="btn-quest" class="btn-sub disabled" disabled>감정 퀘스트 받기</button> [cite: 26]
+                <button onclick="openShopModal()" class="btn-sub">원예상점</button> 
             </div>
 
-            <div class="my-quests">
-                <h4>나의 오늘의 퀘스트 (<span id="quest-count">0</span>/3)</h4>
-                <div id="active-quest-list"></div>
+            <div class="quest-status-box">
+                <h4>진행 중인 퀘스트 (<span id="q-count">0</span>/3)</h4>
+                <div id="active-quests"></div>
             </div>
         </main>
 
-        <div id="emotion-modal" class="modal">
-            <div class="modal-content">
-                <div id="step-content"></div>
-                <div class="modal-btns">
-                    <button id="modal-next" onclick="handleNext()">다음으로</button>
+        <div id="modal-overlay" class="modal-overlay">
+            <div class="modal-window">
+                <div id="modal-content">
+                    </div>
+                <div class="modal-footer">
+                    <button id="modal-prev" onclick="moveStep(-1)" style="display:none">이전</button>
+                    <button id="modal-next" onclick="moveStep(1)">다음으로</button>
                 </div>
             </div>
         </div>
