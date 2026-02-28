@@ -10,58 +10,63 @@
 </head>
 <body>
     <div id="app-container">
-        <main class="garden-main">
-            <header>
-                <div class="header-info">
-                    <span id="date">2026-02-28</span>
-                    <span class="lv">LV.<span id="user-lv">1</span></span>
+        <main class="garden-section">
+            <header class="garden-header">
+                <div class="info-line">
+                    <span id="date-display">2026-02-28</span>
+                    <span class="lv-tag">LV.<span id="ui-lv">1</span></span>
                 </div>
-                <div class="bot-area">
-                    <div class="bubble" id="bot-msg">오늘 감정 물약은 기쁨의 비율이 높네~</div>
-                    <div class="bot-img">👩‍🌾</div> </div>
+                <div class="bot-box">
+                    <div class="speech-bubble" id="bot-msg">오늘 감정 물약은 기쁨의 비율이 높네~ 친구들에게 따뜻한 마음을 전해볼까?</div>
+                    <div class="bot-icon">👩‍🌾</div> 
+                </div>
             </header>
 
             <div class="plant-display">
-                <div id="plant-box">🌱</div>
-                <div class="status-bars">
-                    <div class="s-bar">💩 비료 <progress id="p-fert" value="0" max="100"></progress></div>
-                    <div class="s-bar">💧 물 <progress id="p-water" value="0" max="100"></progress></div>
-                    <div class="s-bar">💊 영양 <progress id="p-nutr" value="0" max="100"></progress></div>
+                <div id="main-plant">🌱</div>
+                <div class="growth-bars">
+                    <div class="bar-item">💩 비료 <progress id="p-fert" value="0" max="100"></progress></div>
+                    <div class="bar-item">💧 물 <progress id="p-water" value="0" max="100"></progress></div>
+                    <div class="bar-item">💊 영양 <progress id="p-nutr" value="0" max="100"></progress></div>
                 </div>
             </div>
 
-            <nav class="btns">
-                <button onclick="openModal('emotion')" class="btn-primary">감정 기록하기</button>
-                <div class="sub-btns">
-                    <button onclick="openModal('quest')" id="q-btn" class="disabled" disabled>감정 퀘스트 받기</button>
+            <nav class="action-nav">
+                <button onclick="openModal('emotion')" class="btn-record-main">감정 기록하기</button>
+                <div class="sub-btn-row">
+                    <button onclick="openModal('quest')" id="q-btn-open" class="disabled" disabled>감정 퀘스트 받기</button>
                     <button onclick="openModal('shop')">원예상점</button>
                     <button onclick="location.href='admin.html'">선생님 모드</button>
                 </div>
             </nav>
         </main>
 
-        <aside class="side-card">
-            <h2>[Jina의 마음 정원]</h2>
-            <div class="card-sec">
-                <h4>감정 이모지</h4>
-                <div id="c-emoji" class="large-e">🌱</div>
+        <aside class="emotion-card-fixed">
+            <h3 class="card-title">[Jina의 마음 정원]</h3>
+            
+            <div class="card-part">
+                <label>감정 이모지</label>
+                <div id="card-emoji-view" class="emoji-result">🌱</div>
             </div>
-            <div class="card-sec">
-                <h4>감정 일기</h4>
-                <p id="c-tags" class="tags">#기쁨 #행복</p>
-                <p id="c-diary">오늘 아침으로 맛있는 김치찌개를 먹었다.</p>
+
+            <div class="card-part">
+                <label>감정 일기</label>
+                <p id="card-tags" class="tag-display">#기쁨 #행복</p>
+                <p id="card-diary-text" class="diary-display">오늘 아침으로 맛있는 김치찌개를 먹었다.</p>
             </div>
-            <div class="card-sec">
-                <h4>퀘스트 보관함</h4>
-                <div id="q-list"></div>
+
+            <div class="card-part">
+                <label>퀘스트 보관함</label>
+                <div id="quest-list-box"></div>
             </div>
-            <div class="points">💰 <span id="u-points">0</span> P</div>
+
+            <div class="point-display">💰 <span id="ui-points">0</span> P</div>
         </aside>
 
         <div id="modal-overlay" class="overlay">
-            <div class="modal-box">
-                <div id="modal-body"></div>
-                <div id="modal-footer" class="m-footer"></div>
+            <div class="modal-window">
+                <div id="modal-content"></div>
+                <div id="modal-footer" class="modal-btns"></div>
             </div>
         </div>
     </div>
