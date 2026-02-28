@@ -2,54 +2,177 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>마음밭 관리자</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Emotion Garden - 교사용 대시보드</title>
+    <link href="https://fonts.googleapis.com/css2?family=DungGeunMo&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <style>
+        :root {
+            --pixel-brown: #634d31;
+            --pixel-gold: #f7d031;
+            --pixel-green: #3fb158;
+            --pixel-bg: #e5d3b3;
+        }
+
+        body {
+            font-family: 'DungGeunMo', sans-serif;
+            background: var(--pixel-bg);
+            margin: 0;
+            padding: 20px;
+            color: var(--pixel-brown);
+        }
+
+        /* 헤더 디자인 */
+        .admin-header {
+            background: var(--pixel-brown);
+            color: white;
+            padding: 20px;
+            border: 4px solid var(--pixel-gold);
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+        }
+
+        .admin-header h1 { margin: 0; font-size: 2.5rem; text-shadow: 2px 2px 0px #000; }
+
+        /* 학생 카드 그리드 */
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        /* 스타듀밸리 풍 학생 카드 [cite: 5, 20] */
+        .student-card {
+            background: #fff8e1;
+            border: 6px solid var(--pixel-brown);
+            padding: 20px;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .student-card:hover { transform: scale(1.02); }
+
+        .student-card.recorded { border-color: var(--pixel-green); }
+
+        .st-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .st-lv { background: var(--pixel-green); color: white; padding: 2px 10px; font-size: 14px; }
+
+        .emoji-view { font-size: 60px; text-align: center; margin: 15px 0; background: #fff; border: 2px dashed var(--pixel-brown); border-radius: 10px; }
+
+        .diary-preview {
+            background: #fdfdfd;
+            border-left: 4px solid var(--pixel-gold);
+            padding: 10px;
+            font-size: 14px;
+            height: 60px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+
+        /* 승인 버튼  */
+        .btn-approve {
+            width: 100%;
+            font-family: 'DungGeunMo';
+            background: var(--pixel-gold);
+            border: 4px solid var(--pixel-brown);
+            padding: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: inset -4px -4px 0px #b59000;
+        }
+
+        .btn-approve:active { box-shadow: none; transform: translate(2px, 2px); }
+
+        .btn-back {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: var(--pixel-brown);
+            color: white;
+            text-decoration: none;
+            border: 4px solid var(--pixel-gold);
+        }
+    </style>
 </head>
-<body style="background:#EEF2F3;">
-    <header style="background:var(--green); color:white; padding:20px; text-align:center;">
-        <h2>[선생님 모드] 우리 반 마음밭 현황</h2>
-    </header>
-    <div id="admin-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr)); gap:20px; padding:20px;"></div>
+<body>
+
+    <div class="admin-header">
+        <h1>🌱 마음 정원 관리자 모드</h1>
+        <p>우리 반 친구들의 성장과 감정을 실시간으로 보살펴주세요.</p>
+    </div>
+
+    <div id="admin-grid" class="admin-grid">
+        </div>
+
+    <a href="index.html" class="btn-back">정원으로 돌아가기</a>
 
     <script>
-        firebase.initializeApp(firebaseConfig); // 위와 동일 설정
+        // index.html과 동일한 Firebase 설정
+        const firebaseConfig = {
+            apiKey: "AIzaSyDw773x1yot2uncAMl_gTQ6z6Njhgh1Od8",
+            authDomain: "secret-quest-class.firebaseapp.com",
+            databaseURL: "https://secret-quest-class-default-rtdb.firebaseio.com",
+            projectId: "secret-quest-class",
+            storageBucket: "secret-quest-class.firebasestorage.app",
+            messagingSenderId: "397245266210",
+            appId: "1:397245266210:web:fde35d6a4dfd6ca7070d7b"
+        };
+        firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        db.ref('students').on('value', (snap) => {
+        // 실시간 학생 데이터 감시 (PDF Page 2-5 데이터 연동) [cite: 5, 22]
+        db.ref('students').on('value', (snapshot) => {
             const grid = document.getElementById('admin-grid');
-            grid.innerHTML = '';
-            snap.forEach(child => {
+            grid.innerHTML = ''; 
+
+            snapshot.forEach((child) => {
                 const s = child.val();
+                const stId = child.key;
+
                 const card = document.createElement('div');
-                card.style = "background:white; padding:20px; border-radius:20px; box-shadow:0 4px 10px rgba(0,0,0,0.1)";
+                card.className = `student-card ${s.tempTags ? 'recorded' : ''}`;
+                
                 card.innerHTML = `
-                    <h3>${child.key} (LV.${s.lv})</h3>
-                    <div style="font-size:40px; text-align:center;">${s.finalEmoji || '🌱'}</div>
-                    <p><b>태그:</b> ${s.tags}</p>
-                    <p><b>일기:</b> ${s.diary}</p>
-                    <hr>
-                    <div id="quest-${child.key}"></div>
+                    <div class="st-info">
+                        <span style="font-size:1.2rem; font-weight:bold;">${stId}</span>
+                        <span class="st-lv">LV.${s.lv || 1}</span>
+                    </div>
+                    <div class="emoji-view">${s.emoji && s.emoji.length > 0 ? '✨' : '🌱'}</div>
+                    <div style="color:var(--pixel-green); margin-bottom:5px;">${s.tempTags || '#아직기록전'}</div>
+                    <div class="diary-preview">${s.tempDiary || '학생이 일기를 작성하고 있습니다...'}</div>
+                    
+                    <div style="font-size:12px; margin-bottom:10px;">
+                        💩${s.stats?.fert||0}% | 💧${s.stats?.water||0}% | 💊${s.stats?.nutr||0}% | 💰${s.points||0}G
+                    </div>
+
+                    <div id="quest-area-${stId}"></div>
                 `;
                 grid.appendChild(card);
-                
-                // 학생이 '다했어요'를 눌렀을 때 승인 버튼 노출
-                if(s.pendingQuests) {
-                    Object.keys(s.pendingQuests).forEach(qKey => {
+
+                // 퀘스트 승인 대기 상태 확인 (학생이 '다했어요!'를 누를 경우) 
+                if (s.notifications) {
+                    Object.keys(s.notifications).forEach(nKey => {
+                        const noti = s.notifications[nKey];
                         const btn = document.createElement('button');
-                        btn.innerText = "승인: " + s.pendingQuests[qKey].title;
-                        btn.style = "background:orange; color:white; border-radius:10px; padding:5px; margin-top:5px; width:100%";
-                        btn.onclick = () => {
-                            db.ref(`students/${child.key}/points`).transaction(p => (p||0) + 10);
-                            db.ref(`students/${child.key}/pendingQuests/${qKey}`).remove();
-                            alert("승인 완료! 포인트가 지급되었습니다.");
-                        };
-                        document.getElementById(`quest-${child.key}`).appendChild(btn);
+                        btn.className = 'btn-approve';
+                        btn.innerText = `✔️ 승인: ${noti.title}`;
+                        btn.onclick = () => approveQuest(stId, nKey);
+                        document.getElementById(`quest-area-${stId}`).appendChild(btn);
                     });
                 }
             });
         });
+
+        // 퀘스트 승인 및 포인트 지급 로직
+        function approveQuest(stId, nKey) {
+            // 1. 포인트 10G 지급
+            db.ref(`students/${stId}/points`).transaction((current) => (current || 0) + 10);
+            // 2. 알림 삭제
+            db.ref(`students/${stId}/notifications/${nKey}`).remove();
+            alert(`${stId} 학생의 노력을 확인했습니다! 10G를 보냈어요.`);
+        }
     </script>
 </body>
 </html>
