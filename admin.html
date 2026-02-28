@@ -2,38 +2,37 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Admin - Emotion Garden</title>
+    <title>Admin Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; padding: 20px; }
-        .st-card { padding: 15px; border: 4px solid var(--brown); background: white; text-align: center; }
-        .st-card.alert { background: #fff176; box-shadow: 0 0 10px #fbc02d; animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0.7; } }
-        .req-panel { margin: 20px; padding: 15px; background: #fff8e1; border: 6px solid var(--brown); }
+        .admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; padding: 20px; }
+        .st-card { background: white; border: 4px solid var(--brown); padding: 15px; text-align: center; }
+        .st-card.active { background: #ffeb3b; animation: glow 1s infinite; }
+        @keyframes glow { 50% { box-shadow: 0 0 20px gold; } }
     </style>
 </head>
-<body style="display:block; overflow-y: scroll;">
+<body style="display:block; background: #e5d3b3;">
     <div class="pixel-border" style="margin:20px;">
-        <h1 class="pixel-font">🌱 선생님 대시보드</h1>
+        <h1 class="pixel-font">👨‍🏫 교사용 관리 화면 (23명)</h1>
         <div id="grid" class="admin-grid pixel-font"></div>
-        <div class="req-panel pixel-font">
-            <h2>📩 다했어요! 요청함</h2>
-            <div id="req-box">새로운 요청이 없습니다.</div>
+        <div class="pixel-border" style="margin-top:20px; background: white;">
+            <h2>📬 다했어요! 알림함</h2>
+            <div id="requests" class="pixel-font">요청 대기 중...</div>
         </div>
+        <button onclick="location.href='index.html'" class="pixel-btn">학생 화면으로</button>
     </div>
     <script>
-        const names = ["김도윤","이서아","박지후","최하윤","정민준","강예린","윤시우","임채원","한지호","오서윤"];
         const grid = document.getElementById('grid');
+        const names = ["김도윤","박서아","이지후","최하윤","정민준","강예지","임우진","한소희"];
         for(let i=1; i<=23; i++) {
-            const name = names[i%10] + (i > 10 ? i : "");
-            grid.innerHTML += `<div id="s${i}" class="st-card" onclick="alert('${name} 학생의 정원을 확인합니다.')">${name}</div>`;
+            grid.innerHTML += `<div id="s${i}" class="st-card">${names[i%8]}${i}</div>`;
         }
-        // 요청 시뮬레이션
+        // 테스트 알람
         setTimeout(() => {
-            document.getElementById('s5').classList.add('alert');
-            document.getElementById('req-box').innerHTML = `[학생 5] 퀘스트 완료! <button class="pixel-btn" onclick="app(5)">승인</button> <button class="pixel-btn" onclick="app(5)">거절</button>`;
-        }, 3000);
-        function app(id) { alert('승인 완료! 포인트 10G 지급.'); document.getElementById('s'+id).classList.remove('alert'); }
+            document.getElementById('s5').classList.add('active');
+            document.getElementById('requests').innerHTML = `[최하윤5] 퀘스트 완료! <button onclick="ok(5)">승인</button>`;
+        }, 2000);
+        function ok(id) { alert('승인되었습니다!'); document.getElementById('s'+id).classList.remove('active'); }
     </script>
 </body>
 </html>
