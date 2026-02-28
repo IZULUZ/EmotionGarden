@@ -2,37 +2,59 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Admin - Emotion Garden</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
     <style>
-        .admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; padding: 20px; }
-        .st-card { background: white; border: 4px solid var(--brown); padding: 15px; text-align: center; }
-        .st-card.active { background: #ffeb3b; animation: glow 1s infinite; }
-        @keyframes glow { 50% { box-shadow: 0 0 20px gold; } }
+        body { font-family: 'Jua', sans-serif; background: #c5e1a5; margin: 0; padding: 20px; }
+        .admin-wrap { background: #fdf6e3; border: 8px solid #8b5a2b; border-radius: 20px; padding: 20px; min-height: 90vh; }
+        h1 { text-align: center; font-size: 3rem; color: #8b5a2b; border-bottom: 4px dashed #8b5a2b; padding-bottom: 20px; }
+        .student-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
+        .st-card { background: white; border: 4px solid #8b5a2b; border-radius: 10px; padding: 15px; text-align: center; font-size: 1.5rem; }
+        .st-card.alert { background: #ffeb3b; border-color: #f57f17; animation: bounce 1s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        .req-box { background: white; border: 4px solid #f44336; padding: 20px; margin-top: 30px; border-radius: 15px; font-size: 1.5rem; }
+        .btn { font-family: 'Jua'; background: #4caf50; color: white; border: 2px solid #388e3c; padding: 10px 20px; font-size: 1.2rem; border-radius: 10px; cursor: pointer; }
     </style>
 </head>
-<body style="display:block; background: #e5d3b3;">
-    <div class="pixel-border" style="margin:20px;">
-        <h1 class="pixel-font">👨‍🏫 교사용 관리 화면 (23명)</h1>
-        <div id="grid" class="admin-grid pixel-font"></div>
-        <div class="pixel-border" style="margin-top:20px; background: white;">
-            <h2>📬 다했어요! 알림함</h2>
-            <div id="requests" class="pixel-font">요청 대기 중...</div>
+<body>
+    <div class="admin-wrap">
+        <h1>👨‍🏫 마음 정원 교사 대시보드 (23명)</h1>
+        
+        <div class="req-box">
+            <h2>🚨 다했어요! 결재 대기함</h2>
+            <div id="req-list">대기 중인 요청이 없습니다.</div>
         </div>
-        <button onclick="location.href='index.html'" class="pixel-btn">학생 화면으로</button>
+
+        <div id="grid" class="student-grid"></div>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="btn" onclick="location.href='index.html'" style="background:#ff9800;">학생 화면으로 돌아가기</button>
+        </div>
     </div>
+
     <script>
         const grid = document.getElementById('grid');
-        const names = ["김도윤","박서아","이지후","최하윤","정민준","강예지","임우진","한소희"];
+        const names = ["김도윤","이지훈","박서아","최지유","정하린","강민우","조윤호","윤서준"];
         for(let i=1; i<=23; i++) {
             grid.innerHTML += `<div id="s${i}" class="st-card">${names[i%8]}${i}</div>`;
         }
-        // 테스트 알람
+        
+        // 3초 뒤에 학생 한 명(Jina 역할)이 완료 요청을 보낸 상황 시뮬레이션
         setTimeout(() => {
-            document.getElementById('s5').classList.add('active');
-            document.getElementById('requests').innerHTML = `[최하윤5] 퀘스트 완료! <button onclick="ok(5)">승인</button>`;
-        }, 2000);
-        function ok(id) { alert('승인되었습니다!'); document.getElementById('s'+id).classList.remove('active'); }
+            document.getElementById('s3').classList.add('alert');
+            document.getElementById('req-list').innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span>[박서아3] 짝꿍에게 칭찬 한마디 건네기 완료!</span>
+                    <button class="btn" onclick="approve(3)">승인 및 포인트 지급</button>
+                </div>
+            `;
+        }, 3000);
+
+        function approve(id) {
+            alert('승인되었습니다! 학생에게 10G가 지급됩니다.');
+            document.getElementById('s'+id).classList.remove('alert');
+            document.getElementById('req-list').innerHTML = "대기 중인 요청이 없습니다.";
+        }
     </script>
 </body>
 </html>
