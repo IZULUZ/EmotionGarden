@@ -11,63 +11,60 @@
 </head>
 <body>
     <div id="start-screen">
-        <div class="pixel-box">
-            <h1 class="pixel-title">Emotion Garden</h1>
-            <button onclick="startGame()" class="pixel-btn-large">정원 가꾸기 시작</button>
+        <div class="pixel-box-title">
+            <h1 class="pixel-text">Emotion Garden</h1>
+            <button onclick="startGame()" class="pixel-btn-start">정원 가꾸기 시작</button>
         </div>
     </div>
 
     <div id="app-container" style="display:none;">
-        <main class="garden-view">
-            <header class="top-bar">
-                <span id="date-now">2026-02-28</span>
-                <div class="level-box">LV.<span id="ui-lv">1</span></div>
-            </header>
+        <main class="garden-area">
+            <div class="status-top">
+                <span id="current-date">2026-02-28</span>
+                <span class="pixel-lv">LV.<span id="ui-lv">1</span></span>
+            </div>
             
-            <div class="bot-section">
-                <div class="pixel-bubble" id="bot-msg">안녕! 오늘 네 기분을 기록해볼까?</div>
-                <div class="pixel-guide">💧</div> </div>
+            <div class="guide-bot-area">
+                <div class="pixel-bubble" id="bot-msg">오늘 감정 물약은 기쁨의 비율이 높네~ 친구들에게 따뜻한 마음을 전해볼까?</div>
+                <div class="bot-sprite">💧</div> </div>
 
-            <div class="plant-center">
+            <div class="plant-zone">
                 <div id="main-plant">🌱</div>
-                <div class="pixel-status-group">
-                    <div class="p-bar">💩 비료 <progress id="prog-fert" value="0" max="100"></progress></div>
-                    <div class="p-bar">💧 물 <progress id="prog-water" value="0" max="100"></progress></div>
-                    <div class="p-bar">💊 영양 <progress id="prog-nutr" value="0" max="100"></progress></div>
+                <div class="growth-stats">
+                    <div class="stat-row">💩 비료 <progress id="p-fert" value="0" max="100"></progress></div>
+                    <div class="stat-row">💧 물 <progress id="p-water" value="0" max="100"></progress></div>
+                    <div class="stat-row">💊 영양 <progress id="p-nutr" value="0" max="100"></progress></div>
                 </div>
             </div>
 
-            <nav class="pixel-nav">
-                <button onclick="openModal('emotion')" class="pixel-btn-main">감정 기록하기</button>
-                <div class="nav-grid">
-                    <button id="btn-q" onclick="openModal('quest')" class="disabled" disabled>감정 퀘스트</button>
+            <nav class="bottom-nav">
+                <button onclick="openModal('emotion')" class="pixel-btn-action main">감정 기록하기</button>
+                <div class="btn-grid">
+                    <button onclick="openModal('quest')" id="q-btn" class="disabled" disabled>감정 퀘스트</button>
                     <button onclick="openModal('shop')">원예상점</button>
                     <button onclick="location.href='admin.html'">선생님 모드</button>
                 </div>
             </nav>
         </main>
 
-        <aside class="fixed-card">
-            <h3 class="card-header">[나의 마음 정원]</h3>
-            <div class="card-item">
+        <aside class="info-card">
+            <h3 class="card-title">[나의 마음 정원]</h3>
+            <div class="card-sec">
                 <label>감정 이모지</label>
-                <div id="card-emoji" class="emoji-display">🌱</div>
+                <div id="card-emoji" class="res-emoji">🌱</div>
             </div>
-            <div class="card-item">
+            <div class="card-sec">
                 <label>감정 일기</label>
-                <p id="card-tags" class="pixel-tags">#대기중</p>
-                <p id="card-diary" class="pixel-diary">기록을 시작하세요.</p>
+                <p id="card-tags" class="res-tags">#대기중</p>
+                <p id="card-diary" class="res-diary">정원 가꾸기를 시작하세요.</p>
             </div>
-            <div class="card-item">
-                <label>포인트</label>
-                <div class="pixel-points">💰 <span id="ui-points">0</span> G</div>
-            </div>
+            <div class="card-sec point-sec">💰 <span id="ui-points">0</span> G</div>
         </aside>
 
-        <div id="modal-overlay" class="overlay">
+        <div id="modal-overlay" class="pixel-overlay">
             <div class="pixel-modal">
                 <div id="modal-body"></div>
-                <div id="modal-nav" class="modal-footer"></div>
+                <div id="modal-foot" class="modal-btns"></div>
             </div>
         </div>
     </div>
