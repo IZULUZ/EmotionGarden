@@ -5,35 +5,35 @@
     <title>Admin - Emotion Garden</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .grid-23 { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; padding: 20px; }
-        .st-box { padding: 10px; border: 4px solid var(--brown); background: white; text-align: center; }
-        .st-box.on { background: #ffeb3b; box-shadow: 0 0 10px gold; }
-        .req-list { border: 6px solid var(--brown); margin: 20px; padding: 15px; background: #fff8e1; }
+        .admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; padding: 20px; }
+        .st-card { padding: 15px; border: 4px solid var(--brown); background: white; text-align: center; }
+        .st-card.alert { background: #fff176; box-shadow: 0 0 10px #fbc02d; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0.7; } }
+        .req-panel { margin: 20px; padding: 15px; background: #fff8e1; border: 6px solid var(--brown); }
     </style>
 </head>
-<body style="display:block; overflow:auto;">
+<body style="display:block; overflow-y: scroll;">
     <div class="pixel-border" style="margin:20px;">
-        <h1 class="pixel-font">🌱 선생님 대시보드 (학생 23명)</h1>
-        <div id="grid" class="grid-23 pixel-font"></div>
-        <div class="req-list pixel-font">
+        <h1 class="pixel-font">🌱 선생님 대시보드</h1>
+        <div id="grid" class="admin-grid pixel-font"></div>
+        <div class="req-panel pixel-font">
             <h2>📩 다했어요! 요청함</h2>
-            <div id="reqs">현재 요청이 없습니다.</div>
+            <div id="req-box">새로운 요청이 없습니다.</div>
         </div>
     </div>
     <script>
-        const names = ["김민준", "이서아", "박도윤", "최지아", "정하윤", "강준우"]; // 예시 이름
+        const names = ["김도윤","이서아","박지후","최하윤","정민준","강예린","윤시우","임채원","한지호","오서윤"];
         const grid = document.getElementById('grid');
         for(let i=1; i<=23; i++) {
-            const n = names[i%6] + i;
-            grid.innerHTML += `<div id="s${i}" class="st-box" onclick="alert('${n} 학생의 감정을 확인합니다.')">${n}</div>`;
+            const name = names[i%10] + (i > 10 ? i : "");
+            grid.innerHTML += `<div id="s${i}" class="st-card" onclick="alert('${name} 학생의 정원을 확인합니다.')">${name}</div>`;
         }
-        // 요청 발생 예시 (3번 학생)
+        // 요청 시뮬레이션
         setTimeout(() => {
-            document.getElementById('s3').classList.add('on');
-            document.getElementById('reqs').innerHTML = `[학생3] 퀘스트 완료! <button onclick="app(3)">승인</button> <button onclick="rej(3)">거절</button>`;
+            document.getElementById('s5').classList.add('alert');
+            document.getElementById('req-box').innerHTML = `[학생 5] 퀘스트 완료! <button class="pixel-btn" onclick="app(5)">승인</button> <button class="pixel-btn" onclick="app(5)">거절</button>`;
         }, 3000);
-        function app(id) { alert('승인! 포인트가 지급됩니다.'); document.getElementById('s'+id).classList.remove('on'); }
-        function rej(id) { alert('거절! 다시 시도하게 합니다.'); document.getElementById('s'+id).classList.remove('on'); }
+        function app(id) { alert('승인 완료! 포인트 10G 지급.'); document.getElementById('s'+id).classList.remove('alert'); }
     </script>
 </body>
 </html>
