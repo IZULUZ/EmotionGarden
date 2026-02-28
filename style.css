@@ -1,29 +1,40 @@
-:root { --green: #A8D5BA; --beige: #FDF6EC; --pink: #FFB7B2; --white: #FFFFFF; }
+:root {
+    --green: #A8D5BA;
+    --beige: #FDF6EC;
+    --white: #FFFFFF;
+    --pink: #FFB7B2;
+}
 
-body { font-family: 'NanumSquareRound', sans-serif; background: var(--beige); margin: 0; padding: 20px; box-sizing: border-box; }
-#app-container { display: flex; gap: 20px; height: calc(100vh - 40px); }
+body { font-family: 'NanumSquareRound', sans-serif; background: var(--beige); margin: 0; overflow: hidden; }
+#app-container { display: flex; height: 100vh; padding: 20px; gap: 20px; box-sizing: border-box; }
 
-/* 좌측 정원 */
-.garden-section { flex: 1.6; background: var(--white); border-radius: 40px; padding: 30px; display: flex; flex-direction: column; position: relative; }
-.plant-display { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-#main-plant { font-size: 160px; transition: transform 0.3s; }
-.status-bars { width: 300px; margin-top: 20px; background: #F9F9F9; padding: 15px; border-radius: 20px; }
-.bar { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; font-size: 13px; }
+/* 좌측 정원 섹션 */
+.garden-view { flex: 1.5; background: var(--white); border-radius: 40px; padding: 30px; display: flex; flex-direction: column; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+.header-row { display: flex; justify-content: space-between; align-items: center; }
+.level-badge { background: var(--green); color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; }
+
+.plant-area { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+#main-plant { font-size: 150px; margin-bottom: 20px; }
+
+/* 성장 스테이터스 바 */
+.growth-bars { width: 80%; background: #F9F9F9; padding: 20px; border-radius: 25px; }
+.bar-group { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 14px; }
 progress { flex: 1; height: 12px; border-radius: 10px; accent-color: var(--green); }
 
-/* 우측 감정 카드 */
-.emotion-card-fixed { flex: 1; background: var(--white); border-radius: 40px; border: 4px solid var(--green); padding: 30px; display: flex; flex-direction: column; gap: 15px; }
-.card-item { background: #FDFDFD; border: 1px dashed var(--green); border-radius: 20px; padding: 15px; }
-.emoji-view { font-size: 50px; text-align: center; }
+/* 우측 고정 카드 섹션 */
+.emotion-card-fixed { flex: 1; background: var(--white); border-radius: 40px; border: 5px solid var(--green); padding: 30px; display: flex; flex-direction: column; gap: 15px; }
+.card-box { background: #fdfdfd; border: 1px dashed var(--green); border-radius: 20px; padding: 15px; }
+.large-emoji { font-size: 60px; text-align: center; display: block; }
+.tag-text { color: var(--green); font-weight: bold; margin: 5px 0; }
 
-/* 팝업 모달 스타일 */
+/* 버튼 디자인 */
+.btn-primary { background: var(--green); color: white; border: none; padding: 20px; border-radius: 30px; font-size: 1.2rem; cursor: pointer; width: 100%; font-weight: bold; }
+.sub-btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.sub-btn-group button { padding: 10px; border-radius: 20px; border: 1px solid var(--green); background: white; cursor: pointer; }
+.disabled { background: #eee !important; color: #aaa !important; cursor: not-allowed; border: none; }
+
+/* 팝업 모달 */
 .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; }
-.modal-window { background: white; width: 500px; margin: 50px auto; border-radius: 35px; padding: 35px; position: relative; }
-.word-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
-.word-grid button { padding: 8px; font-size: 12px; border: 1px solid #EEE; border-radius: 15px; background: none; cursor: pointer; }
-.potion-row { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
-
-/* 버튼 공통 */
-button { border: none; cursor: pointer; transition: 0.2s; }
-.btn-main-record { background: var(--green); color: white; border-radius: 30px; padding: 20px; font-size: 1.3rem; font-weight: bold; width: 100%; }
-.disabled { background: #EEE !important; color: #AAA; }
+.modal { background: white; width: 500px; margin: 50px auto; border-radius: 35px; padding: 30px; max-height: 80vh; overflow-y: auto; }
+.word-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.word-btn { padding: 10px; border-radius: 15px; border: 1px solid #ddd; background: white; cursor: pointer; font-size: 13px; }
