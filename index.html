@@ -11,52 +11,52 @@
 </head>
 <body>
     <div id="start-screen">
-        <div class="pixel-border main-box">
+        <div class="pixel-box-main">
             <h1 class="pixel-font title">Emotion Garden</h1>
-            <button onclick="startGame()" class="pixel-btn start-btn">마음밭으로 이동</button>
+            <button onclick="startGame()" class="pixel-btn start-btn">정원 가꾸기 시작</button>
         </div>
     </div>
 
     <div id="app-container" style="display:none;">
-        <div class="layout-wrapper">
-            <section class="garden-area pixel-border">
-                <div class="status-header pixel-font">
+        <div class="layout">
+            <section class="garden-panel pixel-border">
+                <div class="top-row pixel-font">
                     <span>2026-02-28</span>
-                    <div class="lv-tag">LV.1</div>
+                    <div class="lv-badge">LV.1</div>
                 </div>
-                <div class="bot-box">
-                    <div class="bubble pixel-font" id="bot-msg">오늘 감정 물약은 기쁨의 비율이 높네~</div>
-                    <div class="helper-bot">💧</div>
+                <div class="bot-section">
+                    <div class="bubble pixel-font" id="bot-msg">안녕! 오늘 네 기분은 어때? 물약으로 만들어보자!</div>
+                    <div class="bot-icon">💧</div>
                 </div>
-                <div class="plant-box">
-                    <div id="plant-img">🌱</div>
+                <div class="plant-center">
+                    <div id="main-plant">🌱</div>
                     <div class="bars">
-                        <div class="bar-row pixel-font">💩 비료 <progress id="p-fert" value="30" max="100"></progress></div>
-                        <div class="bar-row pixel-font">💧 물 <progress id="p-water" value="50" max="100"></progress></div>
-                        <div class="bar-row pixel-font">💊 영양 <progress id="p-nutr" value="20" max="100"></progress></div>
+                        <div class="bar-item pixel-font">💩 <progress id="p-fert" value="40" max="100"></progress></div>
+                        <div class="bar-item pixel-font">💧 <progress id="p-water" value="60" max="100"></progress></div>
+                        <div class="bar-item pixel-font">💊 <progress id="p-nutr" value="30" max="100"></progress></div>
                     </div>
                 </div>
-                <div class="controls">
+                <div class="nav-btns">
                     <button onclick="openModal('emotion')" class="pixel-btn rec-btn">감정 기록하기</button>
-                    <div class="sub-grid">
+                    <div class="grid-btns">
                         <button id="q-btn" onclick="openModal('quest')" class="pixel-btn disabled" disabled>감정 퀘스트</button>
                         <button onclick="openModal('shop')" class="pixel-btn">원예상점</button>
                         <button onclick="location.href='admin.html'" class="pixel-btn">선생님 모드</button>
                     </div>
                 </div>
             </section>
-            <aside class="card-area pixel-border">
-                <h3 class="pixel-font">[나의 마음 정원]</h3>
-                <div class="card-item pixel-border-s">
+            <aside class="card-panel pixel-border">
+                <h3 class="pixel-font card-header">[나의 마음 정원]</h3>
+                <div class="pixel-box-s">
                     <label class="pixel-font">감정 이모지</label>
-                    <div id="card-emoji" class="res-e">🌱</div>
+                    <div id="card-emoji" class="res-emoji">🌱</div>
                 </div>
-                <div class="card-item pixel-border-s">
+                <div class="pixel-box-s">
                     <label class="pixel-font">감정 일기</label>
-                    <p id="card-tags" class="res-t">#기록전</p>
-                    <div id="card-diary" class="res-d">일기를 써주세요.</div>
+                    <p id="card-tags" class="pixel-font">#기록전</p>
+                    <div id="card-diary" class="pixel-font">오늘의 마음을 남겨주세요.</div>
                 </div>
-                <div class="point-box pixel-font">💰 <span id="ui-points">0</span> G</div>
+                <div class="point-ui pixel-font">💰 <span id="ui-points">0</span> G</div>
             </aside>
         </div>
     </div>
