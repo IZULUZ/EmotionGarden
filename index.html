@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>마음밭 - 감정 정원 가꾸기</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="header-left">
+                <span id="today-date">2026-02-28</span>
+                <div class="user-lv">LV.<span id="user-level">1</span></div>
+            </div>
+            <h1>[<span id="user-name">Jina</span>의 마음 정원]</h1>
+            <div class="user-points">💰 <span id="display-points">0</span> P</div>
+        </header>
+
+        <main id="garden-view">
+            <div class="garden-area">
+                <div id="plant-box">🌱</div>
+                <div class="helper-bot" id="helper-bot">
+                    <div class="bubble" id="helper-text">안녕! 오늘 네 기분을 물약으로 만들어볼까?</div>
+                    <div class="bot-img">🤖</div>
+                </div>
+            </div>
+            
+            <div class="action-bar">
+                <button onclick="startEmotionStep()" class="btn-main">오늘 감정 모으기</button>
+                <button onclick="openQuestCenter()" id="btn-quest" class="btn-sub disabled" disabled>감정 퀘스트 받기</button>
+                <button onclick="openShop()" class="btn-sub">원예상점</button>
+            </div>
+
+            <div class="my-quests">
+                <h4>나의 오늘의 퀘스트 (<span id="quest-count">0</span>/3)</h4>
+                <div id="active-quest-list"></div>
+            </div>
+        </main>
+
+        <div id="emotion-modal" class="modal">
+            <div class="modal-content">
+                <div id="step-content"></div>
+                <div class="modal-btns">
+                    <button id="modal-next" onclick="handleNext()">다음으로</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
