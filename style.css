@@ -1,37 +1,56 @@
-:root { --brown: #634d31; --gold: #f7d031; --green: #78ab46; --cream: #fff8e1; }
-* { box-sizing: border-box; }
-body { font-family: 'DungGeunMo', sans-serif; background: #333; margin: 0; overflow: hidden; }
-.pixel-font { font-family: 'DungGeunMo'; color: var(--brown); }
+:root { --bg-color: #fdf6e3; --box-bg: #fff; --border-color: #8b5a2b; --btn-color: #ffeb3b; --btn-hover: #fdd835; --point-color: #4caf50; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Jua', sans-serif; background-color: #333; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
 
-/* 화면 레이아웃 */
-#app-container { width: 100vw; height: 100vh; background: #e5d3b3; display: flex; align-items: center; justify-content: center; }
-.main-screen { display: flex; width: 95%; height: 90%; gap: 20px; }
+/* 시작화면 */
+#start-screen { position: absolute; width: 100%; height: 100%; background: #a2d149; display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.intro-box { text-align: center; }
+.intro-box h1 { font-size: 5rem; color: white; text-shadow: 4px 4px var(--border-color); margin-bottom: 30px; }
 
-.left-zone { flex: 1; display: flex; flex-direction: column; gap: 20px; }
-.center-zone { flex: 1.5; display: flex; flex-direction: column; gap: 15px; }
-.right-menu { flex: 0.5; display: flex; flex-direction: column; gap: 10px; }
+/* 메인 프레임 꽉 채우기 */
+#app-container { width: 98vw; height: 95vh; background: var(--bg-color); border: 8px solid var(--border-color); border-radius: 20px; padding: 15px; }
 
-/* 왼쪽 요소 */
-.game-date { background: var(--brown); color: white; padding: 10px; border: 4px solid var(--gold); font-size: 1.2rem; text-align: center; }
-.gardener-area { display: flex; align-items: center; gap: 10px; }
-.human-gardener { font-size: 80px; }
-.pixel-bubble { background: white; border: 4px solid var(--brown); padding: 15px; border-radius: 15px; position: relative; }
+/* 3단 그리드: 빈 공간 차단 */
+.main-grid { display: grid; grid-template-columns: 1fr 1.5fr 0.8fr; gap: 15px; height: 100%; }
+.panel { display: flex; flex-direction: column; gap: 15px; height: 100%; }
 
-.plant-zone { background: var(--green); border: 6px solid var(--brown); flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
-#main-plant { font-size: 100px; margin-bottom: 20px; }
-.status-grid { width: 100%; display: grid; gap: 5px; }
+/* 공통 박스 디자인 */
+.box { background: var(--box-bg); border: 4px solid var(--border-color); border-radius: 15px; padding: 15px; }
 
-/* 중앙 카드 & 퀘스트 */
-.pixel-border { border: 6px solid var(--brown); background: var(--cream); padding: 20px; }
-.emotion-card { height: 60%; text-align: center; }
-.card-emoji { font-size: 80px; margin: 10px 0; }
-.quest-box { height: 35%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+/* 왼쪽 영역 */
+.date-box { text-align: center; font-size: 1.5rem; background: var(--border-color); color: white; }
+.plant-box { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #c5e1a5; }
+#main-plant { font-size: 150px; margin-bottom: 20px; text-shadow: 0 10px 10px rgba(0,0,0,0.2); } /* 엄청 큰 식물 */
+.status-bars { width: 90%; font-size: 1.2rem; }
+progress { width: 100%; height: 20px; }
 
-/* 메뉴 버튼 */
-.pixel-btn { font-family: 'DungGeunMo'; background: var(--gold); border: 4px solid var(--brown); box-shadow: inset -4px -4px #b59000; cursor: pointer; font-size: 1.1rem; }
-.menu-btn { height: 25%; width: 100%; }
+.gardener-box { display: flex; align-items: center; gap: 15px; }
+.gardener-icon { font-size: 60px; }
+.bubble { flex-grow: 1; background: #e3f2fd; border: 3px solid #64b5f6; padding: 10px; border-radius: 10px; font-size: 1.2rem; }
+
+/* 가운데 영역 */
+.card-box { flex: 2; display: flex; flex-direction: column; align-items: center; text-align: center; background: #fffde7; }
+.card-box h2 { font-size: 2rem; border-bottom: 3px dashed var(--border-color); margin-bottom: 10px; width: 100%; }
+.emoji-result { font-size: 100px; margin: 20px 0; }
+.tag-result { font-size: 1.5rem; color: #1976d2; margin-bottom: 10px; }
+.diary-result { font-size: 1.3rem; padding: 10px; background: white; border-radius: 10px; border: 2px solid #ccc; width: 90%; flex-grow: 1; }
+.point-ui { font-size: 1.8rem; margin-top: 15px; }
+
+.quest-box { flex: 1; text-align: center; background: #fce4ec; border-color: #f06292; }
+.quest-box h2 { font-size: 1.8rem; margin-bottom: 10px; }
+#quest-text { font-size: 1.5rem; margin-bottom: 15px; }
+
+/* 오른쪽 버튼 영역 */
+.right-panel { justify-content: space-between; }
+.game-btn { font-family: 'Jua'; background: var(--btn-color); border: 4px solid var(--border-color); border-radius: 15px; font-size: 1.5rem; cursor: pointer; transition: 0.2s; box-shadow: 0 5px 0 var(--border-color); }
+.game-btn:active { transform: translateY(5px); box-shadow: none; }
+.menu-btn { width: 100%; flex-grow: 1; margin-bottom: 10px; }
 .admin-btn { background: #ff7043; color: white; }
+.small-btn { padding: 10px 20px; font-size: 1.2rem; }
 
-/* 팝업 모달 (크게 변경) */
-.overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; }
-.pixel-modal.large { width: 800px; min-height: 500px; margin: 5% auto; background: var(--cream); border: 8px solid var(--brown); padding: 40px; position: relative; }
+/* 팝업 모달 */
+.overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; }
+.modal-content { position: relative; width: 800px; min-height: 500px; margin: 4% auto; background: var(--bg-color); border: 6px solid var(--border-color); border-radius: 20px; padding: 30px; font-size: 1.3rem; }
+.close-btn { position: absolute; top: 15px; right: 15px; background: #f44336; color: white; border: none; padding: 10px; border-radius: 10px; font-family: 'Jua'; font-size: 1.2rem; cursor: pointer; }
+.grid-btns { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
+.grid-btns button { padding: 15px; font-size: 1.5rem; }
