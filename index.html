@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>마음밭 - 감정 정원</title>
+    <title>마음밭 - 감정 정원 가꾸기</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -10,53 +10,58 @@
 </head>
 <body>
     <div id="app-container">
-        <section class="garden-view">
-            <div class="header-row">
-                <span id="date-display">2026-02-28</span>
-                <div class="level-badge">LV.<span id="ui-lv">1</span></div>
-            </div>
-            
-            <div class="plant-area">
-                <div id="main-plant">🌱</div>
-                <div class="growth-bars">
-                    <div class="bar-group">💩 비료 <progress id="prog-fert" value="0" max="100"></progress></div>
-                    <div class="bar-group">💧 물 <progress id="prog-water" value="0" max="100"></progress></div>
-                    <div class="bar-group">💊 영양 <progress id="prog-nutr" value="0" max="100"></progress></div>
+        <main class="garden-main">
+            <header>
+                <div class="header-info">
+                    <span id="date">2026-02-28</span>
+                    <span class="lv">LV.<span id="user-lv">1</span></span>
+                </div>
+                <div class="bot-area">
+                    <div class="bubble" id="bot-msg">오늘 감정 물약은 기쁨의 비율이 높네~</div>
+                    <div class="bot-img">👩‍🌾</div> </div>
+            </header>
+
+            <div class="plant-display">
+                <div id="plant-box">🌱</div>
+                <div class="status-bars">
+                    <div class="s-bar">💩 비료 <progress id="p-fert" value="0" max="100"></progress></div>
+                    <div class="s-bar">💧 물 <progress id="p-water" value="0" max="100"></progress></div>
+                    <div class="s-bar">💊 영양 <progress id="p-nutr" value="0" max="100"></progress></div>
                 </div>
             </div>
 
-            <div class="controls">
+            <nav class="btns">
                 <button onclick="openModal('emotion')" class="btn-primary">감정 기록하기</button>
-                <div class="sub-btn-group">
-                    <button id="btn-quest" onclick="openModal('quest')" class="disabled" disabled>감정 퀘스트</button>
+                <div class="sub-btns">
+                    <button onclick="openModal('quest')" id="q-btn" class="disabled" disabled>감정 퀘스트 받기</button>
                     <button onclick="openModal('shop')">원예상점</button>
                     <button onclick="location.href='admin.html'">선생님 모드</button>
                 </div>
-            </div>
-        </section>
+            </nav>
+        </main>
 
-        <aside class="emotion-card-fixed">
-            <h2 style="text-align: center;">[Jina의 마음 정원]</h2>
-            <div class="card-box">
-                <h4>오늘의 감정</h4>
-                <span id="card-emoji" class="large-emoji">🌱</span>
+        <aside class="side-card">
+            <h2>[Jina의 마음 정원]</h2>
+            <div class="card-sec">
+                <h4>감정 이모지</h4>
+                <div id="c-emoji" class="large-e">🌱</div>
             </div>
-            <div class="card-box">
-                <h4>감정 기록</h4>
-                <p id="card-tags" class="tag-text">#기록전</p>
-                <p id="card-diary" style="font-size: 14px;">마음을 기록해 주세요.</p>
+            <div class="card-sec">
+                <h4>감정 일기</h4>
+                <p id="c-tags" class="tags">#기쁨 #행복</p>
+                <p id="c-diary">오늘 아침으로 맛있는 김치찌개를 먹었다.</p>
             </div>
-            <div class="card-box">
+            <div class="card-sec">
                 <h4>퀘스트 보관함</h4>
-                <div id="quest-storage" style="font-size: 13px;"></div>
+                <div id="q-list"></div>
             </div>
-            <div style="text-align: right; font-weight: bold;">💰 <span id="ui-points">0</span> P</div>
+            <div class="points">💰 <span id="u-points">0</span> P</div>
         </aside>
 
         <div id="modal-overlay" class="overlay">
-            <div class="modal">
-                <div id="modal-content"></div>
-                <div id="modal-footer" style="margin-top: 20px; text-align: right;"></div>
+            <div class="modal-box">
+                <div id="modal-body"></div>
+                <div id="modal-footer" class="m-footer"></div>
             </div>
         </div>
     </div>
