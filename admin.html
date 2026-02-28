@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>마음밭 관리자 - 선생님용</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body class="admin-page">
+    <header class="admin-header">
+        <h2>우리 반 마음밭 실시간 현황</h2>
+        <div class="admin-stats">참여 인원: <span id="active-count">0</span>명</div>
+    </header>
+
+    <div id="student-grid" class="admin-grid">
+        </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDw773x1yot2uncAMl_gTQ6z6Njhgh1Od8",
+            authDomain: "secret-quest-class.firebaseapp.com",
+            databaseURL: "https://secret-quest-class-default-rtdb.firebaseio.com",
+            projectId: "secret-quest-class",
+            storageBucket: "secret-quest-class.firebasestorage.app",
+            messagingSenderId: "397245266210",
+            appId: "1:397245266210:web:fde35d6a4dfd6ca7070d7b"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // 학생 데이터 실시간 감시
+        db.ref('students').on('value', (snapshot) => {
+            const grid = document.getElementById('student-grid');
+            grid.innerHTML = '';
+            let count = 0;
+
+            snapshot.forEach(child => {
+                const s = child.val();
+                if(s.lastLogin) count++;
+                
+                const card = document.createElement('div');
+                card.className = `student-card ${s.isRecording ? 'pulse' : ''}`;
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="st-num">${s.number || ''}</span>
+                        <span class="st-name">${s.name}</span>
+                        <span class="status-dot ${s.online ? 'on' : ''}"></span>
+                    </div>
+                    <div class="st-emotion">${s.emoji || '🌱'}</div>
+                    <div class="st-tags">${s.tags || '#아직_기록전'}</div>
+                    <div class="quest-status">
+                        <h5>진행 중인 퀘스트</h5>
+                        <ul id="q-list-${child.key}"></ul>
+                    </div>
+                `;
+                grid.appendChild(card);
+
+                // 해당 학생의 퀘스트 중 '검토 대기(pending)' 상태인 것 표시
+                if(s.quests) {
+                    const qList = document.getElementById(`q-list-${child.key}`);
+                    Object.keys(s.quests).forEach(qKey => {
+                        const q = s.quests[qKey];
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                            ${q.title} 
+                            ${q.status === 'pending' ? 
+                            `<button class="btn-approve" onclick="approveQuest('${child.key}', '${qKey}')">승인</button>` : 
+                            `<span class="done">완료됨</span>`}
+                        `;
+                        qList.appendChild(li);
+                    });
+                }
+            });
+            document.getElementById('active-count').innerText = count;
+        });
+
+        function approveQuest(stId, qKey) {
+            // 1. 포인트 지급 2. 퀘스트 상태 완료로 변경
+            db.ref(`students/${stId}/quests/${qKey}`).update({ status: 'completed' });
+            db.ref(`students/${stId}`).transaction(current => {
+                if(current) {
+                    current.points = (current.points || 0) + 10;
+                }
+                return current;
+            });
+            alert('퀘스트 승인 및 포인트가 지급되었습니다!');
+        }
+    </script>
+</body>
+</html>
