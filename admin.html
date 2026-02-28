@@ -7,13 +7,14 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
-<body style="background: #eef2f3;">
-    <header><h2>선생님 모드: 우리 반 마음밭 관리</h2></header>
-    <div id="admin-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap:20px; padding:20px;"></div>
+<body style="background:#EEF2F3;">
+    <header style="background:var(--green); color:white; padding:20px; text-align:center;">
+        <h2>[선생님 모드] 우리 반 마음밭 현황</h2>
+    </header>
+    <div id="admin-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr)); gap:20px; padding:20px;"></div>
 
     <script>
-        // Firebase 설정 (위와 동일)
-        firebase.initializeApp(firebaseConfig);
+        firebase.initializeApp(firebaseConfig); // 위와 동일 설정
         const db = firebase.database();
 
         db.ref('students').on('value', (snap) => {
@@ -22,28 +23,29 @@
             snap.forEach(child => {
                 const s = child.val();
                 const card = document.createElement('div');
-                card.className = "student-card";
-                card.style = "background:white; padding:20px; border-radius:15px; border-left: 5px solid " + (s.status==='recorded'?'#a8d5ba':'#ddd');
+                card.style = "background:white; padding:20px; border-radius:20px; box-shadow:0 4px 10px rgba(0,0,0,0.1)";
                 card.innerHTML = `
-                    <h3>${child.key}</h3>
-                    <div style="font-size:30px">${s.emoji || '🌱'}</div>
-                    <p style="color:#666">${s.tags || ''}</p>
+                    <h3>${child.key} (LV.${s.lv})</h3>
+                    <div style="font-size:40px; text-align:center;">${s.finalEmoji || '🌱'}</div>
+                    <p><b>태그:</b> ${s.tags}</p>
+                    <p><b>일기:</b> ${s.diary}</p>
                     <hr>
-                    <div id="noti-${child.key}"></div>
+                    <div id="quest-${child.key}"></div>
                 `;
                 grid.appendChild(card);
                 
-                if(s.notifications) {
-                    Object.keys(s.notifications).forEach(nk => {
-                        const n = s.notifications[nk];
+                // 학생이 '다했어요'를 눌렀을 때 승인 버튼 노출
+                if(s.pendingQuests) {
+                    Object.keys(s.pendingQuests).forEach(qKey => {
                         const btn = document.createElement('button');
-                        btn.innerText = "승인: " + n.title;
+                        btn.innerText = "승인: " + s.pendingQuests[qKey].title;
+                        btn.style = "background:orange; color:white; border-radius:10px; padding:5px; margin-top:5px; width:100%";
                         btn.onclick = () => {
-                            db.ref(`students/${child.key}/points`).transaction(p => (p||0)+10);
-                            db.ref(`students/${child.key}/notifications/${nk}`).remove();
-                            alert("포인트를 지급했습니다!");
+                            db.ref(`students/${child.key}/points`).transaction(p => (p||0) + 10);
+                            db.ref(`students/${child.key}/pendingQuests/${qKey}`).remove();
+                            alert("승인 완료! 포인트가 지급되었습니다.");
                         };
-                        document.getElementById(`noti-${child.key}`).appendChild(btn);
+                        document.getElementById(`quest-${child.key}`).appendChild(btn);
                     });
                 }
             });
