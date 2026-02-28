@@ -11,62 +11,64 @@
 </head>
 <body>
     <div id="start-screen">
-        <div class="pixel-box-main">
-            <h1 class="pixel-font title">Emotion Garden</h1>
-            <button onclick="startGame()" class="pixel-btn start-btn">정원 가꾸기 시작</button>
+        <div class="pixel-box">
+            <h1 class="pixel-font">Emotion Garden</h1>
+            <button onclick="startGame()" class="pixel-btn start-btn">입장하기</button>
         </div>
     </div>
 
     <div id="app-container" style="display:none;">
-        <div class="layout">
-            <section class="garden-panel pixel-border">
-                <div class="top-row pixel-font">
-                    <span>2026-02-28</span>
-                    <div class="lv-badge">LV.1</div>
+        <div class="main-screen">
+            <div class="left-zone">
+                <div class="game-date pixel-font">📅 2026-02-28</div>
+                
+                <div class="gardener-area">
+                    <div class="human-gardener">👨‍🌾</div>
+                    <div class="pixel-bubble pixel-font" id="bot-msg">어서와! 오늘 정원은 아주 파릇파릇하네.</div>
                 </div>
-                <div class="bot-section">
-                    <div class="bubble pixel-font" id="bot-msg">안녕! 오늘 네 기분은 어때? 물약으로 만들어보자!</div>
-                    <div class="bot-icon">💧</div>
-                </div>
-                <div class="plant-center">
-                    <div id="main-plant">🌱</div>
-                    <div class="bars">
-                        <div class="bar-item pixel-font">💩 <progress id="p-fert" value="40" max="100"></progress></div>
-                        <div class="bar-item pixel-font">💧 <progress id="p-water" value="60" max="100"></progress></div>
-                        <div class="bar-item pixel-font">💊 <progress id="p-nutr" value="30" max="100"></progress></div>
+
+                <div class="plant-zone">
+                    <div id="main-plant">🌻</div>
+                    <div class="status-grid pixel-font">
+                        <div>💩 비료 <progress id="p-fert" value="50" max="100"></progress></div>
+                        <div>💧 수분 <progress id="p-water" value="50" max="100"></progress></div>
+                        <div>💊 영양 <progress id="p-nutr" value="50" max="100"></progress></div>
                     </div>
                 </div>
-                <div class="nav-btns">
-                    <button onclick="openModal('emotion')" class="pixel-btn rec-btn">감정 기록하기</button>
-                    <div class="grid-btns">
-                        <button id="q-btn" onclick="openModal('quest')" class="pixel-btn disabled" disabled>감정 퀘스트</button>
-                        <button onclick="openModal('shop')" class="pixel-btn">원예상점</button>
-                        <button onclick="location.href='admin.html'" class="pixel-btn">선생님 모드</button>
-                    </div>
+            </div>
+
+            <div class="center-zone">
+                <div class="emotion-card pixel-border">
+                    <h2 class="pixel-font">[오늘의 마음 카드]</h2>
+                    <div id="card-emoji" class="card-emoji">🌱</div>
+                    <div id="card-tags" class="pixel-font card-tags">#대기중</div>
+                    <div id="card-diary" class="pixel-font card-diary">감정을 기록하면 이곳에 일기가 나타납니다.</div>
+                    <div class="point-display pixel-font">💰 <span id="ui-points">0</span> G</div>
                 </div>
-            </section>
-            <aside class="card-panel pixel-border">
-                <h3 class="pixel-font card-header">[나의 마음 정원]</h3>
-                <div class="pixel-box-s">
-                    <label class="pixel-font">감정 이모지</label>
-                    <div id="card-emoji" class="res-emoji">🌱</div>
+
+                <div class="quest-box pixel-border">
+                    <h3 class="pixel-font">📜 진행 중인 퀘스트</h3>
+                    <div id="quest-content" class="pixel-font">퀘스트를 받아주세요.</div>
+                    <button id="done-btn" onclick="requestApprove()" class="pixel-btn" style="display:none;">다했어요!</button>
                 </div>
-                <div class="pixel-box-s">
-                    <label class="pixel-font">감정 일기</label>
-                    <p id="card-tags" class="pixel-font">#기록전</p>
-                    <div id="card-diary" class="pixel-font">오늘의 마음을 남겨주세요.</div>
-                </div>
-                <div class="point-ui pixel-font">💰 <span id="ui-points">0</span> G</div>
-            </aside>
+            </div>
+
+            <div class="right-menu">
+                <button onclick="openPopup('emotion')" class="pixel-btn menu-btn">감정 기록하기</button>
+                <button onclick="openPopup('quest')" class="pixel-btn menu-btn">퀘스트 받기</button>
+                <button onclick="openPopup('shop')" class="pixel-btn menu-btn">원예 상점</button>
+                <button onclick="location.href='admin.html'" class="pixel-btn menu-btn admin-btn">선생님 모드</button>
+            </div>
         </div>
     </div>
 
     <div id="modal-overlay" class="overlay">
-        <div class="modal pixel-border">
+        <div class="pixel-modal large">
             <div id="modal-body"></div>
             <div id="modal-footer"></div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
