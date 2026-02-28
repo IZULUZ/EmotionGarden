@@ -1,45 +1,31 @@
 :root {
-    --garden-green: #a8d5ba;
-    --potion-purple: #9d81ba;
-    --soft-pink: #ffb7b2;
-    --clay: #795548;
+    --green: #a8d5ba; --pink: #ffb7b2; --bg: #fdf6ec; --brown: #795548;
 }
 
-body { font-family: 'NanumSquareRound', sans-serif; background: #fdf6ec; margin: 0; overflow: hidden; }
+body { font-family: 'NanumSquareRound', sans-serif; background: var(--bg); margin: 0; overflow-x: hidden; }
+header { padding: 20px; text-align: center; border-bottom: 2px solid var(--green); }
 
-/* 정원 보조 캐릭터 위치 [cite: 56] */
-.helper-character {
-    position: absolute; bottom: 120px; left: 20px;
-    width: 80px; transition: all 0.5s ease;
-}
-.speech-bubble {
-    position: absolute; top: -70px; left: 0; background: white;
-    padding: 10px; border-radius: 15px; font-size: 0.8rem;
-    width: 150px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    border: 2px solid var(--garden-green);
-}
+/* 정원 및 식물 */
+.garden-field { height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+.plant-evolution { font-size: 100px; cursor: pointer; transition: transform 0.3s; }
+.plant-evolution:hover { transform: scale(1.1); }
 
-/* 물약 슬라이더 애니메이션 [cite: 63] */
-.potion-slider {
-    -webkit-appearance: none; width: 100%; height: 15px;
-    border-radius: 10px; background: #eee; outline: none;
-}
-.potion-slider::-webkit-slider-thumb {
-    -webkit-appearance: none; width: 25px; height: 25px;
-    background: var(--potion-purple); border-radius: 50%; cursor: pointer;
-    box-shadow: 0 0 10px var(--potion-purple);
-}
+/* 헬퍼 로봇 (PDF Page 4 캐릭터 느낌) */
+.helper-bot { position: absolute; bottom: 10px; left: 20px; display: flex; align-items: flex-end; }
+.speech-bubble { background: white; padding: 12px; border-radius: 18px; font-size: 13px; border: 2px solid var(--green); margin-bottom: 5px; width: 140px; }
+.bot-icon { font-size: 40px; }
 
-/* 이모지 키친 합성 창 [cite: 40, 41] */
-.kitchen-box {
-    display: flex; justify-content: center; align-items: center;
-    gap: 15px; font-size: 2.5rem; margin: 20px 0;
-    background: #f0f0f0; padding: 20px; border-radius: 20px;
-}
+/* 물약 스포이드 조절기 */
+.potion-row { display: flex; align-items: center; margin: 10px 0; gap: 10px; }
+.potion-row input { flex: 1; accent-color: var(--brown); }
 
-/* 단계별 버튼 및 레이아웃 */
-.btn-record { background: var(--garden-green); color: white; border: none; padding: 15px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; }
-.disabled { filter: grayscale(1); cursor: not-allowed; opacity: 0.6; }
+/* 모달 애니메이션 */
+.overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 100; }
+.modal-box { background: white; width: 90%; max-width: 420px; margin: 40px auto; border-radius: 25px; padding: 25px; max-height: 85vh; overflow-y: auto; }
 
-.modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); }
-.modal-content { background: white; margin: 5% auto; padding: 30px; border-radius: 30px; width: 85%; max-width: 450px; text-align: center; }
+/* 버튼 */
+button { border: none; border-radius: 20px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+.btn-primary { background: var(--green); color: white; padding: 15px 40px; font-size: 1.1rem; box-shadow: 0 4px 0 #89b399; }
+.btn-primary:active { transform: translateY(3px); box-shadow: none; }
+.btn-secondary { background: white; border: 2px solid var(--green); color: var(--green); padding: 10px 20px; margin: 5px; }
+.disabled { filter: grayscale(1); opacity: 0.5; }
