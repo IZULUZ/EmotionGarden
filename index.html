@@ -2,71 +2,72 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>마음밭 - 감정 정원 가꾸기</title>
+    <title>Emotion Garden</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DungGeunMo&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
-    <div id="app-container">
-        <main class="garden-section">
-            <header class="garden-header">
-                <div class="info-line">
-                    <span id="date-display">2026-02-28</span>
-                    <span class="lv-tag">LV.<span id="ui-lv">1</span></span>
-                </div>
-                <div class="bot-box">
-                    <div class="speech-bubble" id="bot-msg">오늘 감정 물약은 기쁨의 비율이 높네~ 친구들에게 따뜻한 마음을 전해볼까?</div>
-                    <div class="bot-icon">👩‍🌾</div> 
-                </div>
-            </header>
+    <div id="start-screen">
+        <div class="pixel-box">
+            <h1 class="pixel-title">Emotion Garden</h1>
+            <button onclick="startGame()" class="pixel-btn-large">정원 가꾸기 시작</button>
+        </div>
+    </div>
 
-            <div class="plant-display">
+    <div id="app-container" style="display:none;">
+        <main class="garden-view">
+            <header class="top-bar">
+                <span id="date-now">2026-02-28</span>
+                <div class="level-box">LV.<span id="ui-lv">1</span></div>
+            </header>
+            
+            <div class="bot-section">
+                <div class="pixel-bubble" id="bot-msg">안녕! 오늘 네 기분을 기록해볼까?</div>
+                <div class="pixel-guide">💧</div> </div>
+
+            <div class="plant-center">
                 <div id="main-plant">🌱</div>
-                <div class="growth-bars">
-                    <div class="bar-item">💩 비료 <progress id="p-fert" value="0" max="100"></progress></div>
-                    <div class="bar-item">💧 물 <progress id="p-water" value="0" max="100"></progress></div>
-                    <div class="bar-item">💊 영양 <progress id="p-nutr" value="0" max="100"></progress></div>
+                <div class="pixel-status-group">
+                    <div class="p-bar">💩 비료 <progress id="prog-fert" value="0" max="100"></progress></div>
+                    <div class="p-bar">💧 물 <progress id="prog-water" value="0" max="100"></progress></div>
+                    <div class="p-bar">💊 영양 <progress id="prog-nutr" value="0" max="100"></progress></div>
                 </div>
             </div>
 
-            <nav class="action-nav">
-                <button onclick="openModal('emotion')" class="btn-record-main">감정 기록하기</button>
-                <div class="sub-btn-row">
-                    <button onclick="openModal('quest')" id="q-btn-open" class="disabled" disabled>감정 퀘스트 받기</button>
+            <nav class="pixel-nav">
+                <button onclick="openModal('emotion')" class="pixel-btn-main">감정 기록하기</button>
+                <div class="nav-grid">
+                    <button id="btn-q" onclick="openModal('quest')" class="disabled" disabled>감정 퀘스트</button>
                     <button onclick="openModal('shop')">원예상점</button>
                     <button onclick="location.href='admin.html'">선생님 모드</button>
                 </div>
             </nav>
         </main>
 
-        <aside class="emotion-card-fixed">
-            <h3 class="card-title">[Jina의 마음 정원]</h3>
-            
-            <div class="card-part">
+        <aside class="fixed-card">
+            <h3 class="card-header">[나의 마음 정원]</h3>
+            <div class="card-item">
                 <label>감정 이모지</label>
-                <div id="card-emoji-view" class="emoji-result">🌱</div>
+                <div id="card-emoji" class="emoji-display">🌱</div>
             </div>
-
-            <div class="card-part">
+            <div class="card-item">
                 <label>감정 일기</label>
-                <p id="card-tags" class="tag-display">#기쁨 #행복</p>
-                <p id="card-diary-text" class="diary-display">오늘 아침으로 맛있는 김치찌개를 먹었다.</p>
+                <p id="card-tags" class="pixel-tags">#대기중</p>
+                <p id="card-diary" class="pixel-diary">기록을 시작하세요.</p>
             </div>
-
-            <div class="card-part">
-                <label>퀘스트 보관함</label>
-                <div id="quest-list-box"></div>
+            <div class="card-item">
+                <label>포인트</label>
+                <div class="pixel-points">💰 <span id="ui-points">0</span> G</div>
             </div>
-
-            <div class="point-display">💰 <span id="ui-points">0</span> P</div>
         </aside>
 
         <div id="modal-overlay" class="overlay">
-            <div class="modal-window">
-                <div id="modal-content"></div>
-                <div id="modal-footer" class="modal-btns"></div>
+            <div class="pixel-modal">
+                <div id="modal-body"></div>
+                <div id="modal-nav" class="modal-footer"></div>
             </div>
         </div>
     </div>
