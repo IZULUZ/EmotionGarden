@@ -29,3 +29,26 @@ button { border: none; border-radius: 20px; font-weight: bold; cursor: pointer; 
 .btn-primary:active { transform: translateY(3px); box-shadow: none; }
 .btn-secondary { background: white; border: 2px solid var(--green); color: var(--green); padding: 10px 20px; margin: 5px; }
 .disabled { filter: grayscale(1); opacity: 0.5; }
+:root { --green: #A8D5BA; --beige: #FDF6EC; --white: #FFFFFF; }
+
+#app-container { display: flex; height: 100vh; background: var(--beige); padding: 20px; gap: 20px; }
+
+/* 왼쪽 정원 섹션 */
+.garden-view { flex: 1.5; background: var(--white); border-radius: 30px; padding: 30px; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+.main-display { height: 60%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+#plant-pot { font-size: 120px; margin-bottom: 20px; }
+
+/* 스테이터스 바 디자인 */
+.growth-stats { width: 80%; background: #f0f0f0; padding: 15px; border-radius: 20px; margin-bottom: 30px; }
+.stat-bar { display: flex; align-items: center; gap: 10px; margin: 5px 0; font-size: 14px; }
+progress { flex: 1; height: 12px; border-radius: 10px; }
+progress::-webkit-progress-value { background: var(--green); border-radius: 10px; }
+
+/* 오른쪽 감정 카드 섹션 */
+.emotion-card { flex: 1; background: var(--white); border-radius: 30px; padding: 30px; border: 3px solid var(--green); display: flex; flex-direction: column; gap: 20px; }
+.card-section { background: #F9F9F9; padding: 15px; border-radius: 20px; border: 1px dashed var(--green); }
+
+/* 버튼 그룹 */
+.garden-btns { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.btn-main { background: var(--green); color: white; width: 100%; padding: 15px; border-radius: 25px; font-size: 1.1rem; }
+.disabled { background: #eee; color: #aaa; cursor: not-allowed; }
