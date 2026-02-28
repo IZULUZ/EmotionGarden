@@ -50,7 +50,24 @@ progress { width: 100%; height: 20px; }
 
 /* 팝업 모달 */
 .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; }
-.modal-content { position: relative; width: 800px; min-height: 500px; margin: 4% auto; background: var(--bg-color); border: 6px solid var(--border-color); border-radius: 20px; padding: 30px; font-size: 1.3rem; }
-.close-btn { position: absolute; top: 15px; right: 15px; background: #f44336; color: white; border: none; padding: 10px; border-radius: 10px; font-family: 'Jua'; font-size: 1.2rem; cursor: pointer; }
-.grid-btns { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
-.grid-btns button { padding: 15px; font-size: 1.5rem; }
+/* 팝업 모달 수정: 화면 밖으로 나가지 않고 스크롤 생김 */
+.modal-content { 
+    position: relative; 
+    width: 800px; 
+    max-height: 85vh; /* 높이 제한 추가 */
+    overflow-y: auto; /* 내용이 넘치면 스크롤 생성 */
+    margin: 4% auto; 
+    background: var(--bg-color); 
+    border: 6px solid var(--border-color); 
+    border-radius: 20px; 
+    padding: 30px; 
+    font-size: 1.3rem; 
+}
+
+/* 퀘스트 선택지 디자인 추가 */
+.quest-item {
+    background: white; border: 3px solid #ccc; padding: 15px; margin: 10px 0; border-radius: 10px; cursor: pointer; transition: 0.2s;
+}
+.quest-item.selected {
+    border-color: #4caf50; background: #e8f5e9; font-weight: bold;
+}
