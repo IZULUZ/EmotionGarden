@@ -1,0 +1,45 @@
+:root {
+    --garden-green: #a8d5ba;
+    --potion-purple: #9d81ba;
+    --soft-pink: #ffb7b2;
+    --clay: #795548;
+}
+
+body { font-family: 'NanumSquareRound', sans-serif; background: #fdf6ec; margin: 0; overflow: hidden; }
+
+/* 정원 보조 캐릭터 위치 [cite: 56] */
+.helper-character {
+    position: absolute; bottom: 120px; left: 20px;
+    width: 80px; transition: all 0.5s ease;
+}
+.speech-bubble {
+    position: absolute; top: -70px; left: 0; background: white;
+    padding: 10px; border-radius: 15px; font-size: 0.8rem;
+    width: 150px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border: 2px solid var(--garden-green);
+}
+
+/* 물약 슬라이더 애니메이션 [cite: 63] */
+.potion-slider {
+    -webkit-appearance: none; width: 100%; height: 15px;
+    border-radius: 10px; background: #eee; outline: none;
+}
+.potion-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 25px; height: 25px;
+    background: var(--potion-purple); border-radius: 50%; cursor: pointer;
+    box-shadow: 0 0 10px var(--potion-purple);
+}
+
+/* 이모지 키친 합성 창 [cite: 40, 41] */
+.kitchen-box {
+    display: flex; justify-content: center; align-items: center;
+    gap: 15px; font-size: 2.5rem; margin: 20px 0;
+    background: #f0f0f0; padding: 20px; border-radius: 20px;
+}
+
+/* 단계별 버튼 및 레이아웃 */
+.btn-record { background: var(--garden-green); color: white; border: none; padding: 15px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; }
+.disabled { filter: grayscale(1); cursor: not-allowed; opacity: 0.6; }
+
+.modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); }
+.modal-content { background: white; margin: 5% auto; padding: 30px; border-radius: 30px; width: 85%; max-width: 450px; text-align: center; }
