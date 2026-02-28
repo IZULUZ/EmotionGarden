@@ -2,7 +2,6 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>마음밭 - 감정 정원 가꾸기</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -10,42 +9,54 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
-    <div id="app">
-        <header>
-            <div class="top-row">
-                <span id="current-date">2026-02-28</span>
-                <span class="lv-tag">LV.<span id="user-lv">1</span></span>
-            </div>
-            <h1>[<span id="student-name">Jina</span>의 마음 정원]</h1>
-            <div class="point-box">💰 <span id="user-point">0</span> P</div>
-        </header>
+    <div id="app-container">
+        <section class="garden-view">
+            <header>
+                <span class="date">2026-02-28</span>
+                <span class="lv">LV.<span id="user-lv">1</span></span>
+            </header>
+            
+            <div class="main-display">
+                <div id="plant-pot">🌱</div>
+                
+                <div class="growth-stats">
+                    <div class="stat-bar">💩 비료 <progress id="p-fertilizer" value="0" max="100"></progress></div>
+                    <div class="stat-bar">💧 물 <progress id="p-water" value="0" max="100"></progress></div>
+                    <div class="stat-bar">💊 영양 <progress id="p-nutrient" value="0" max="100"></progress></div>
+                </div>
 
-        <main id="garden-view">
-            <div class="garden-field">
-                <div id="plant-pot" class="plant-evolution">🌱</div>
                 <div class="helper-bot">
-                    <div class="speech-bubble" id="bot-msg">안녕! 오늘 네 기분을 물약으로 만들어볼까?</div>
-                    <div class="bot-icon">👩‍🌾</div>
+                    <div class="speech-bubble" id="bot-msg">오늘 감정 물약은 기쁨의 비율이 높네~ [cite: 10]</div>
+                    <div class="bot-img">👩‍🌾</div>
                 </div>
             </div>
 
-            <div class="main-buttons">
-                <button onclick="openModal('emotion')" class="btn-primary">오늘 감정 모으기</button>
-                <button onclick="openModal('quest')" id="quest-btn" class="btn-secondary disabled" disabled>감정 퀘스트 받기</button>
-                <button onclick="openModal('shop')" class="btn-secondary">원예상점</button>
+            <div class="garden-btns">
+                <button onclick="openModal('emotion')" class="btn-main">오늘 감정 모으기 [cite: 23]</button>
+                <button onclick="openModal('quest')" id="btn-quest" class="disabled" disabled>감정 퀘스트 받기 [cite: 26]</button>
+                <button onclick="openModal('shop')" class="btn-sub">원예상점 [cite: 27]</button>
             </div>
+        </section>
 
-            <div class="active-quest-area">
-                <h4>나의 퀘스트 보관함</h4>
-                <div id="my-quest-list"></div>
+        <aside class="emotion-card">
+            <h2>[<span id="st-name">Jina</span>의 마음 정원] [cite: 5]</h2>
+            <div class="card-section">
+                <h4>나의 감정 일기 [cite: 21]</h4>
+                <div class="diary-preview">
+                    <p id="card-tags">#기쁨 #행복 </p>
+                    <p id="card-text">오늘 아침으로 맛있는 김치찌개를 먹었다. </p>
+                </div>
             </div>
-        </main>
+            <div class="card-section">
+                <h4>퀘스트 보관함 [cite: 15]</h4>
+                <div id="quest-list-display">
+                    </div>
+            </div>
+            <div class="points-display">💰 <span id="user-point">0</span> P</div>
+        </aside>
 
         <div id="modal-overlay" class="overlay">
-            <div class="modal-box">
-                <div id="modal-body"></div>
-                <div class="modal-footer" id="modal-footer"></div>
-            </div>
+            <div class="modal-content" id="modal-body"></div>
         </div>
     </div>
     <script src="script.js"></script>
