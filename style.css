@@ -1,37 +1,71 @@
-/* 디자인 시스템 */
-:root { --green: #A8D5BA; --beige: #FDF6EC; --white: #FFFFFF; --pink: #FFB7B2; }
+:root {
+    --pixel-brown: #634d31;
+    --pixel-gold: #f7d031;
+    --pixel-green: #3fb158;
+    --pixel-bg: #e5d3b3;
+}
 
-body { font-family: 'NanumSquareRound', sans-serif; background: var(--beige); margin: 0; overflow: hidden; }
-#app-container { display: flex; height: 100vh; padding: 20px; gap: 20px; box-sizing: border-box; }
+body {
+    font-family: 'DungGeunMo', sans-serif;
+    background: #333;
+    margin: 0;
+    color: var(--pixel-brown);
+}
 
-/* 좌측 정원 영역 */
-.garden-section { flex: 1.6; background: var(--white); border-radius: 40px; padding: 30px; display: flex; flex-direction: column; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-.garden-header { display: flex; flex-direction: column; gap: 10px; }
-.lv-tag { background: var(--green); color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; }
+/* 시작 화면 */
+#start-screen {
+    height: 100vh;
+    background: #87ceeb; /* 하늘색 배경 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
 
-.speech-bubble { background: #F0F0F0; padding: 15px; border-radius: 20px; position: relative; font-size: 14px; }
-.bot-icon { font-size: 40px; margin-top: 5px; }
+.pixel-title {
+    font-size: 4rem;
+    color: white;
+    text-shadow: 4px 4px 0px var(--pixel-brown);
+    margin-bottom: 30px;
+}
 
-.plant-display { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-#main-plant { font-size: 160px; }
-.growth-bars { width: 80%; background: #F9F9F9; padding: 20px; border-radius: 25px; margin-top: 20px; }
-.bar-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; }
-progress { flex: 1; height: 12px; border-radius: 10px; accent-color: var(--green); }
+/* 메인 레이아웃 */
+#app-container { display: flex; height: 100vh; padding: 20px; gap: 20px; box-sizing: border-box; background: var(--pixel-bg); }
+.garden-view { flex: 1.5; background: #96be25; border: 6px solid var(--pixel-brown); border-radius: 4px; padding: 20px; display: flex; flex-direction: column; }
+.fixed-card { flex: 1; background: #fff8e1; border: 6px solid var(--pixel-brown); padding: 20px; }
 
-/* 우측 카드 영역 (PDF 디자인) */
-.emotion-card-fixed { flex: 1; background: var(--white); border-radius: 40px; border: 5px solid var(--green); padding: 30px; display: flex; flex-direction: column; gap: 15px; }
-.card-part { background: #fdfdfd; border: 1px dashed var(--green); border-radius: 20px; padding: 15px; }
-.emoji-result { font-size: 60px; text-align: center; }
-.tag-display { color: var(--green); font-weight: bold; margin-bottom: 5px; }
+/* 픽셀 버튼 스타일 */
+button {
+    font-family: 'DungGeunMo';
+    border: 4px solid var(--pixel-brown);
+    background: var(--pixel-gold);
+    cursor: pointer;
+    box-shadow: inset -4px -4px 0px #b59000;
+}
+
+.pixel-btn-main { width: 100%; padding: 15px; font-size: 1.5rem; margin-bottom: 10px; }
 
 /* 팝업 모달 */
-.overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; }
-.modal-window { background: white; width: 480px; margin: 60px auto; border-radius: 35px; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-.word-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
-.word-btn { padding: 10px; border-radius: 15px; border: 1px solid #eee; background: white; cursor: pointer; font-size: 12px; }
+.overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; }
+.pixel-modal {
+    background: #fff8e1;
+    border: 8px solid var(--pixel-brown);
+    width: 500px;
+    margin: 50px auto;
+    padding: 25px;
+    box-shadow: 0 0 0 4px var(--pixel-gold);
+}
 
-/* 버튼 */
-.btn-record-main { background: var(--green); color: white; border: none; padding: 20px; border-radius: 30px; font-size: 1.2rem; font-weight: bold; width: 100%; cursor: pointer; }
-.sub-btn-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px; }
-.sub-btn-row button { padding: 12px; border-radius: 20px; border: 1px solid var(--green); background: white; font-size: 12px; cursor: pointer; }
-.disabled { background: #eee !important; color: #aaa !important; border: none !important; cursor: not-allowed; }
+/* 성장바 */
+progress { width: 100%; height: 20px; border: 2px solid var(--pixel-brown); background: #eee; }
+progress::-webkit-progress-value { background: var(--pixel-green); }
+
+.pixel-guide {
+    font-size: 40px;
+    animation: float 2s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
