@@ -1,34 +1,37 @@
-:root { --brown: #634d31; --gold: #f7d031; --green: #78ab46; --bg: #e5d3b3; }
+:root { --brown: #634d31; --gold: #f7d031; --green: #78ab46; --cream: #fff8e1; }
 * { box-sizing: border-box; }
-body { font-family: 'DungGeunMo', sans-serif; background: #222; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
-
+body { font-family: 'DungGeunMo', sans-serif; background: #333; margin: 0; overflow: hidden; }
 .pixel-font { font-family: 'DungGeunMo'; color: var(--brown); }
 
-/* 시작화면 */
-#start-screen { position: absolute; width: 100%; height: 100%; background: #5c94fc; display: flex; align-items: center; justify-content: center; z-index: 1000; }
-.title { font-size: 4rem; color: white; text-shadow: 4px 4px var(--brown); margin-bottom: 20px; }
+/* 화면 레이아웃 */
+#app-container { width: 100vw; height: 100vh; background: #e5d3b3; display: flex; align-items: center; justify-content: center; }
+.main-screen { display: flex; width: 95%; height: 90%; gap: 20px; }
 
-/* 메인 프레임 */
-#app-container { width: 1000px; height: 650px; background: var(--bg); border: 8px solid var(--brown); }
-.layout { display: flex; height: 100%; gap: 10px; padding: 15px; }
+.left-zone { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+.center-zone { flex: 1.5; display: flex; flex-direction: column; gap: 15px; }
+.right-menu { flex: 0.5; display: flex; flex-direction: column; gap: 10px; }
 
-/* 픽셀 테두리 */
-.pixel-border { border: 6px solid var(--brown); background: var(--bg); padding: 15px; }
-.pixel-box-s { border: 4px solid var(--brown); background: #fff8e1; padding: 10px; margin-bottom: 10px; }
+/* 왼쪽 요소 */
+.game-date { background: var(--brown); color: white; padding: 10px; border: 4px solid var(--gold); font-size: 1.2rem; text-align: center; }
+.gardener-area { display: flex; align-items: center; gap: 10px; }
+.human-gardener { font-size: 80px; }
+.pixel-bubble { background: white; border: 4px solid var(--brown); padding: 15px; border-radius: 15px; position: relative; }
 
-.garden-panel { flex: 1.6; background: var(--green); display: flex; flex-direction: column; }
-.card-panel { flex: 1; background: #fff8e1; }
+.plant-zone { background: var(--green); border: 6px solid var(--brown); flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+#main-plant { font-size: 100px; margin-bottom: 20px; }
+.status-grid { width: 100%; display: grid; gap: 5px; }
 
-/* 버튼 */
-.pixel-btn { font-family: 'DungGeunMo'; background: var(--gold); border: 4px solid var(--brown); box-shadow: inset -4px -4px #b59000; cursor: pointer; }
-.rec-btn { width: 100%; padding: 15px; font-size: 1.3rem; margin-bottom: 10px; }
-.grid-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; }
+/* 중앙 카드 & 퀘스트 */
+.pixel-border { border: 6px solid var(--brown); background: var(--cream); padding: 20px; }
+.emotion-card { height: 60%; text-align: center; }
+.card-emoji { font-size: 80px; margin: 10px 0; }
+.quest-box { height: 35%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 
-/* 보조봇 */
-.bot-icon { font-size: 40px; animation: float 2s infinite; }
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+/* 메뉴 버튼 */
+.pixel-btn { font-family: 'DungGeunMo'; background: var(--gold); border: 4px solid var(--brown); box-shadow: inset -4px -4px #b59000; cursor: pointer; font-size: 1.1rem; }
+.menu-btn { height: 25%; width: 100%; }
+.admin-btn { background: #ff7043; color: white; }
 
-/* 팝업 */
-.overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); z-index: 2000; }
-.modal { width: 480px; margin: 50px auto; background: #fff8e1; }
-.emoji-kitchen { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
+/* 팝업 모달 (크게 변경) */
+.overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; }
+.pixel-modal.large { width: 800px; min-height: 500px; margin: 5% auto; background: var(--cream); border: 8px solid var(--brown); padding: 40px; position: relative; }
