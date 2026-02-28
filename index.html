@@ -9,65 +9,66 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
-    <div id="app-wrapper">
-        <section class="garden-main">
-            <header>
-                <div class="top-info">
+    <div id="app-container">
+        <main class="garden-section">
+            <header class="garden-header">
+                <div class="header-left">
                     <span id="current-date">2026-02-28</span>
-                    <span class="lv-badge">LV.<span id="user-lv">1</span></span>
+                    <div class="level-tag">LV.<span id="user-lv">1</span></div>
                 </div>
-                <div class="bot-area">
-                    <div class="speech-bubble" id="bot-msg">안녕! 오늘 네 기분을 물약으로 만들어볼까?</div>
-                    <div class="bot-character">👩‍🌾</div>
+                <div class="helper-bot">
+                    <div class="bubble" id="bot-msg">안녕! 오늘 네 기분은 어때?</div>
+                    <div class="bot-char">👩‍🌾</div>
                 </div>
             </header>
-            
-            <div class="plant-container">
+
+            <div class="plant-display">
                 <div id="main-plant">🌱</div>
                 <div class="status-bars">
-                    <div class="bar-item">💩 비료 <progress id="bar-fert" value="0" max="100"></progress></div>
-                    <div class="bar-item">💧 물 <progress id="bar-water" value="0" max="100"></progress></div>
-                    <div class="bar-item">💊 영양 <progress id="bar-nutr" value="0" max="100"></progress></div>
+                    <div class="bar">💩 비료 <progress id="bar-fert" value="0" max="100"></progress></div>
+                    <div class="bar">💧 물 <progress id="bar-water" value="0" max="100"></progress></div>
+                    <div class="bar">💊 영양 <progress id="bar-nutr" value="0" max="100"></progress></div>
                 </div>
             </div>
 
-            <nav class="action-buttons">
-                <button onclick="openModal('emotion')" class="btn-record">오늘 감정 모으기</button>
-                <button onclick="openModal('quest')" id="quest-btn" class="btn-quest disabled" disabled>감정 퀘스트 받기</button>
-                <button onclick="openModal('shop')" class="btn-shop">원예상점</button>
-                <button onclick="location.href='admin.html'" class="btn-admin">선생님 모드</button>
+            <nav class="garden-nav">
+                <button onclick="openModal('emotion')" class="btn-main-record">감정 기록하기</button>
+                <div class="sub-btns">
+                    <button onclick="openModal('quest')" id="btn-quest-open" class="disabled" disabled>감정 퀘스트 받기</button>
+                    <button onclick="openModal('shop')">원예상점</button>
+                    <button onclick="location.href='admin.html'">선생님 모드</button>
+                </div>
             </nav>
-        </section>
+        </main>
 
-        <aside class="emotion-side-card">
-            <h2>[<span id="display-name">Jina</span>의 마음 정원]</h2>
+        <aside class="emotion-card-fixed">
+            <div class="card-title">[<span id="display-name">Jina</span>의 마음 정원]</div>
             
-            <div class="card-box">
-                <h4>감정 이모지</h4>
-                <div id="card-emoji" class="large-emoji">🌱</div>
+            <div class="card-item">
+                <h5>감정 이모지</h5>
+                <div id="card-emoji" class="emoji-view">🌱</div>
             </div>
 
-            <div class="card-box">
-                <h4>감정 일기</h4>
-                <div class="diary-view">
-                    <p id="card-tags" class="tags">#기록전</p>
-                    <p id="card-diary-text">아직 기록된 내용이 없어요.</p>
+            <div class="card-item">
+                <h5>감정 일기</h5>
+                <div class="diary-preview">
+                    <p id="card-tags" class="tag-text">#기록전</p>
+                    <p id="card-text">오늘의 마음을 기록해주세요.</p>
                 </div>
             </div>
 
-            <div class="card-box">
-                <h4>퀘스트 보관함</h4>
-                <div id="my-quest-list">
-                    </div>
+            <div class="card-item">
+                <h5>퀘스트 보관함</h5>
+                <div id="active-quest-list"></div>
             </div>
 
-            <div class="currency-info">💰 <span id="user-points">0</span> P</div>
+            <div class="card-footer">💰 <span id="user-point">0</span> P</div>
         </aside>
 
         <div id="modal-overlay" class="overlay">
             <div class="modal-window">
-                <div id="modal-body"></div>
-                <div id="modal-footer" class="modal-footer"></div>
+                <div id="modal-step-content"></div>
+                <div id="modal-navigation" class="modal-nav"></div>
             </div>
         </div>
     </div>
